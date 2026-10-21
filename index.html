@@ -392,11 +392,18 @@
 
         let selectedCourses = [];
 
-        function renderCourses() {
-            const grid = document.getElementById('coursesGrid');
-            grid.innerHTML = '';
-            courses.forEach((course) => {
-                grid.innerHTML += `
+       function renderCourses() {
+    const grid = document.getElementById('coursesGrid');
+
+    if (!grid) {
+        console.error(
+            'No se encontró el elemento #coursesGrid. ' +
+            'Verifica el HTML publicado en Render.'
+        );
+        return;
+    }
+
+    grid.innerHTML = '';
                     <div class="course-card">
                         <div>
                             <span class="code">${course.code}</span>
