@@ -1,1 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Censo para Cursos Emergentes 2027 - CINDEA Pital</title>
+    <style>
+        :root {
+            --primary-green: #0B5D39;
+            --accent-green: #12824F;
+            --light-bg: #F2F7F4;
+            --card-bg: #FFFFFF;
+            --text-dark: #1E293B;
+            --border-color: #CBD5E1;
+            --accent-blue: #0284C7;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container img {
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            padding: 3px;
+        }
+
+        .logo-text h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #073B24 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-tag {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            color: #A7F3D0;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-box {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 1.5rem auto;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid #EAB308;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .hero-p {
+            max-width: 750px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .step-num {
+            background: var(--primary-green);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .course-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+            background: #FAFAFA;
+        }
+
+        .course-card:hover {
+            border-color: var(--primary-green);
+            background: #F0FDF4;
+        }
+
+        .course-card h4 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-card .code {
+            font-size: 0.75rem;
+            color: #64748B;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-add {
+            margin-top: 0.8rem;
+            background: white;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            transition: 0.2s;
+        }
+
+        .btn-add:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Lateral - Prioridades */
+        .sidebar {
+            position: sticky;
+            top: 1rem;
+        }
+
+        .priority-list {
+            list-style: none;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .priority-item {
+            background: #F1F5F9;
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .btn-remove {
+            color: #EF4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 0 0.3rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-green);
+        }
+
+        .info-footer {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748B;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-text">
+                <h2>CINDEA PITAL</h2>
+                <p>Educación que transforma vidas</p>
+            </div>
+        </div>
+        <span>Consulta Comunitaria 2027</span>
+    </header>
+
+    <section class="hero">
+        <div class="hero-tag">CREANDO NUESTRO MAÑANA EN COMUNIDAD</div>
+        <h1>Censo para cursos emergentes 2027</h1>
+        
+        <div class="alert-box">
+            Este formulario es una consulta para la posible apertura de cursos en 2027 por parte del <strong>CINDEA Pital</strong>.<br>
+            <strong>No es matrícula ni reserva de espacios.</strong>
+        </div>
+
+        <p class="hero-p">Colabora con nosotros para definir la oferta educativa del CINDEA Pital para el 2027. Tu opinión sobre qué te gustaría estudiar es fundamental para esta planificación.</p>
+
+        <div class="badges">
+            <span class="badge">23 Cursos Disponibles</span>
+            <span class="badge">Hasta 5 Preferencias</span>
+            <span class="badge">Participación Gratuita</span>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <div>
+            <!-- Paso 1 -->
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="step-num">01</span>
+                    <h3>Cuéntanos quién eres</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre completo *</label>
+                        <input type="text" placeholder="Escribe tu nombre y apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cédula o documento de identidad *</label>
+                        <input type="text" placeholder="Ej.: 1-1234-5678" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono *</label>
+                        <input type="tel" placeholder="Ej.: 8888-8888" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electrónico</label>
+                        <input type="email" placeholder="Ej.: nombre@correo.com">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="step-num">02</span>
+                    <h3>Encuentra lo que te inspira</h3>
+                </div>
+                <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 1rem;">Haz clic en el botón (+) para agregar los cursos a tus prioridades (máximo 5 opciones).</p>
+                
+                <input type="text" id="searchInput" class="search-bar" placeholder="Buscar por nombre de curso o área..." onkeyup="filterCourses()">
+
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Cursos generados dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Lateral: Paso 3 -->
+        <div class="sidebar">
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="step-num">03</span>
+                    <h3>Tus prioridades</h3>
+                </div>
+                <p style="font-size: 0.8rem; color: #64748B; margin-bottom: 1rem;">
+                    <span id="selectedCount">0</span> de 5 cursos seleccionados.
+                </p>
+
+                <ul class="priority-list" id="priorityList">
+                    <li style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding-top: 2rem;">Tus cursos favoritos aparecerán aquí.</li>
+                </ul>
+
+                <label style="font-size: 0.75rem; color: #475569; display: flex; gap: 0.4rem; margin-bottom: 1rem;">
+                    <input type="checkbox" required>
+                    Autorizo al CINDEA Pital a utilizar estos datos para registrar mi participación y contactarme.
+                </label>
+
+                <button class="btn-submit" onclick="submitForm()">Enviar respuestas</button>
+            </div>
+        </div>
+    </main>
+
+    <section class="info-footer">
+        <h4 style="margin-bottom: 0.5rem; color: var(--primary-green);">Información importante</h4>
+        <p>Este formulario tiene como objetivo conocer cuáles son los cursos de mayor interés y preferencia entre las personas de la comunidad de Pital y alrededores.</p>
+        <p style="margin-top: 0.5rem;"><strong>Importante: este formulario NO corresponde a un proceso de matrícula, inscripción ni reserva de cupo.</strong> La oferta final dependerá de la disponibilidad de recursos y la cantidad de personas interesadas.</p>
+    </section>
+
+    <footer>
+        CINDEA Pital · San Carlos, Costa Rica
+    </footer>
+
+    <script>
+        // Lista de los 23 Cursos Emergentes
+        const courses = [
+            "Preparación y productos de repostería",
+            "Software de aplicación",
+            "Manipulación de alimentos",
+            "Mantenimiento básico de computadoras",
+            "Inglés para servicio al cliente",
+            "Gestión y administración de pymes",
+            "Contabilidad básica e inventarios",
+            "Electricidad residencial básica",
+            "Diseño gráfico básico y redes sociales",
+            "Principios de jardinería y paisajismo",
+            "Mecánica básica de motocicletas",
+            "Barismo y preparación de bebidas",
+            "Corte y confección básica",
+            "Salud ocupacional y seguridad industrial",
+            "Atención y cuidado del adulto mayor",
+            "Fotografía básica para emprendedores",
+            "Excel intermedio para el trabajo",
+            "Técnicas de servicio de restaurante y bar",
+            "Instalación de paneles solares básicos",
+            "Marketing digital para negocios locales",
+            "Preparación de panadería artesanal",
+            "Reparación de teléfonos celulares",
+            "Manejo de bodegas y logística básica"
+        ];
+
+        let selectedCourses = [];
+
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = '';
+            courses.forEach((course, index) => {
+                grid.innerHTML += `
+                    <div class="course-card">
+                        <div>
+                            <span class="code">Módulo ${300 + index}</span>
+                            <h4>${course}</h4>
+                        </div>
+                        <button class="btn-add" onclick="addCourse('${course}')">+ Agregar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addCourse(courseName) {
+            if (selectedCourses.includes(courseName)) {
+                alert("Ya agregaste este curso a tus prioridades.");
+                return;
+            }
+            if (selectedCourses.length >= 5) {
+                alert("Puedes seleccionar un máximo de 5 preferencias.");
+                return;
+            }
+            selectedCourses.push(courseName);
+            updatePriorityList();
+        }
+
+        function removeCourse(index) {
+            selectedCourses.splice(index, 1);
+            updatePriorityList();
+        }
+
+        function updatePriorityList() {
+            const list = document.getElementById('priorityList');
+            const count = document.getElementById('selectedCount');
+            count.innerText = selectedCourses.length;
+
+            if (selectedCourses.length === 0) {
+                list.innerHTML = `<li style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding-top: 2rem;">Tus cursos favoritos aparecerán aquí.</li>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            selectedCourses.forEach((course, index) => {
+                list.innerHTML += `
+                    <li class="priority-item">
+                        <span><strong>#${index + 1}</strong> ${course}</span>
+                        <button class="btn-remove" onclick="removeCourse(${index})">&times;</button>
+                    </li>
+                `;
+            });
+        }
+
+        function filterCourses() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        function submitForm() {
+            if(selectedCourses.length === 0) {
+                alert("Por favor selecciona al menos 1 curso preferido.");
+                return;
+            }
+            alert("¡Gracias por participar! Tus preferencias para el CINDEA Pital han sido registradas correctamente.");
+        }
+
+        // Cargar cursos al iniciar
+        renderCourses();
+    </script>
+</body>
+</html>
