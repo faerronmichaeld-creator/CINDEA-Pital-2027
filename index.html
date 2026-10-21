@@ -423,29 +423,111 @@
     <script>
         // Lista de los 23 Cursos Emergentes
         const courses = [
-            "Preparación y productos de repostería",
-            "Software de aplicación",
-            "Manipulación de alimentos",
-            "Mantenimiento básico de computadoras",
-            "Inglés para servicio al cliente",
-            "Gestión y administración de pymes",
-            "Contabilidad básica e inventarios",
-            "Electricidad residencial básica",
-            "Diseño gráfico básico y redes sociales",
-            "Principios de jardinería y paisajismo",
-            "Mecánica básica de motocicletas",
-            "Barismo y preparación de bebidas",
-            "Corte y confección básica",
-            "Salud ocupacional y seguridad industrial",
-            "Atención y cuidado del adulto mayor",
-            "Fotografía básica para emprendedores",
-            "Excel intermedio para el trabajo",
-            "Técnicas de servicio de restaurante y bar",
-            "Instalación de paneles solares básicos",
-            "Marketing digital para negocios locales",
-            "Preparación de panadería artesanal",
-            "Reparación de teléfonos celulares",
-            "Manejo de bodegas y logística básica"
+           <script>
+        // Lista exacta de los 23 Cursos Emergentes CINDEA Pital 2027
+        const courses = [
+            { code: "Módulo 300", name: "Preparación y servicios de productos de repostería" },
+            { code: "Módulo 304", name: "Digitación computacional" },
+            { code: "Módulo 307", name: "Técnicas secretariales" },
+            { code: "Módulo 308", name: "Oficina moderna" },
+            { code: "Módulo 309", name: "Inglés Conversacional Inicial" },
+            { code: "Módulo 310", name: "Inglés Conversacional Intermedio" },
+            { code: "Módulo 311", name: "Inglés Conversacional Avanzado" },
+            { code: "Módulo 312", name: "Me comunico en un idioma extranjero" },
+            { code: "Módulo 316", name: "Ideando mi pequeño negocio" },
+            { code: "Módulo 319", name: "El mundo de los negocios" },
+            { code: "Módulo 322", name: "Líderes y gestores" },
+            { code: "Módulo 326", name: "Montajes eléctricos básicos" },
+            { code: "Módulo 328", name: "Reparación de electrodomésticos" },
+            { code: "Módulo 329", name: "Técnicas de bisutería y orfebrería" },
+            { code: "Módulo 332", name: "Hagamos artesanías" },
+            { code: "Módulo 333", name: "Alta costura" },
+            { code: "Módulo 334", name: "Corte y confección" },
+            { code: "Módulo 338", name: "Servicio al cliente" },
+            { code: "Módulo 347", name: "Al disfrutar del movimiento" },
+            { code: "Módulo 348", name: "Educación Vial" },
+            { code: "Módulo 350", name: "Manipulación de alimentos" },
+            { code: "Módulo 356", name: "Elaboración y decoración de pastelería" },
+            { code: "Módulo 359", name: "Aprendiendo a razonar y preparar para la U" }
+        ];
+
+        let selectedCourses = [];
+
+        function renderCourses() {
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = '';
+            courses.forEach((course) => {
+                grid.innerHTML += `
+                    <div class="course-card">
+                        <div>
+                            <span class="code">${course.code}</span>
+                            <h4>${course.name}</h4>
+                        </div>
+                        <button class="btn-add" onclick="addCourse('${course.code}: ${course.name}')">+ Agregar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addCourse(courseTitle) {
+            if (selectedCourses.includes(courseTitle)) {
+                alert("Ya agregaste este curso a tus prioridades.");
+                return;
+            }
+            if (selectedCourses.length >= 5) {
+                alert("Puedes seleccionar un máximo de 5 preferencias.");
+                return;
+            }
+            selectedCourses.push(courseTitle);
+            updatePriorityList();
+        }
+
+        function removeCourse(index) {
+            selectedCourses.splice(index, 1);
+            updatePriorityList();
+        }
+
+        function updatePriorityList() {
+            const list = document.getElementById('priorityList');
+            const count = document.getElementById('selectedCount');
+            count.innerText = selectedCourses.length;
+
+            if (selectedCourses.length === 0) {
+                list.innerHTML = `<li style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding-top: 2rem;">Tus cursos favoritos aparecerán aquí.</li>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            selectedCourses.forEach((course, index) => {
+                list.innerHTML += `
+                    <li class="priority-item">
+                        <span><strong>#${index + 1}</strong> ${course}</span>
+                        <button class="btn-remove" onclick="removeCourse(${index})">&times;</button>
+                    </li>
+                `;
+            });
+        }
+
+        function filterCourses() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        function submitForm() {
+            if(selectedCourses.length === 0) {
+                alert("Por favor selecciona al menos 1 curso preferido.");
+                return;
+            }
+            alert("¡Gracias por participar! Tus preferencias para el CINDEA Pital han sido registradas correctamente.");
+        }
+
+        // Cargar cursos al iniciar
+        renderCourses();
+    </script>
         ];
 
         let selectedCourses = [];
