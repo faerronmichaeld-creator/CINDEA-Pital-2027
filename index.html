@@ -12,7 +12,6 @@
             --card-bg: #FFFFFF;
             --text-dark: #1E293B;
             --border-color: #CBD5E1;
-            --accent-blue: #0284C7;
         }
 
         * {
@@ -31,24 +30,11 @@
         header {
             background-color: var(--primary-green);
             color: white;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-container img {
-            height: 50px;
-            background: white;
-            border-radius: 50%;
-            padding: 3px;
         }
 
         .logo-text h2 {
@@ -61,64 +47,22 @@
             opacity: 0.9;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #073B24 0%, var(--primary-green) 100%);
-            color: white;
-            padding: 3rem 2rem;
+        .hero-banner {
+            padding: 1.5rem 1rem;
             text-align: center;
-            position: relative;
         }
 
-        .hero-tag {
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-            color: #A7F3D0;
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .alert-box {
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--text-dark);
-            max-width: 800px;
-            margin: 1.5rem auto;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            border-left: 5px solid #EAB308;
-            font-size: 0.95rem;
-            text-align: left;
-        }
-
-        .hero-p {
-            max-width: 750px;
-            margin: 0 auto 1.5rem;
-            font-size: 1.05rem;
-        }
-
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+        .hero-banner img {
+            width: 100%;
+            max-width: 1100px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .main-container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 1rem auto;
             padding: 0 1rem;
             display: grid;
             grid-template-columns: 1fr 340px;
@@ -256,7 +200,6 @@
             color: white;
         }
 
-        /* Lateral - Prioridades */
         .sidebar {
             position: sticky;
             top: 1rem;
@@ -264,7 +207,7 @@
 
         .priority-list {
             list-style: none;
-            min-height: 200px;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -330,17 +273,17 @@
 <body>
 
     <header>
-        <div class="logo-container">
-            <div class="logo-text">
-                <h2>CINDEA PITAL</h2>
-                <p>Educación que transforma vidas</p>
-            </div>
+        <div class="logo-text">
+            <h2>CINDEA PITAL</h2>
+            <p>Educación que transforma vidas</p>
         </div>
         <span>Consulta Comunitaria 2027</span>
     </header>
-<section style="padding: 1rem 0; text-align: center;">
-        <img src="banner.jpg" alt="Censo Cursos Emergentes CINDEA Pital 2027" style="width: 100%; max-width: 1100px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
-    </section>
+
+    <div class="hero-banner">
+        <img src="banner.jpg" alt="Censo Cursos Emergentes CINDEA Pital 2027">
+    </div>
+
     <main class="main-container">
         <div>
             <!-- Paso 1 -->
@@ -375,17 +318,17 @@
                     <span class="step-num">02</span>
                     <h3>Encuentra lo que te inspira</h3>
                 </div>
-                <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 1rem;">Haz clic en el botón (+) para agregar los cursos a tus prioridades (máximo 5 opciones).</p>
+                <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 1rem;">Haz clic en el botón (+ Agregar) para incluir los cursos en tus prioridades (máximo 5 opciones).</p>
                 
-                <input type="text" id="searchInput" class="search-bar" placeholder="Buscar por nombre de curso o área..." onkeyup="filterCourses()">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Buscar por nombre de curso o número de módulo..." onkeyup="filterCourses()">
 
                 <div class="courses-grid" id="coursesGrid">
-                    <!-- Cursos generados dinámicamente -->
+                    <!-- Cursos generados con JS -->
                 </div>
             </div>
         </div>
 
-        <!-- Lateral: Paso 3 -->
+        <!-- Paso 3 -->
         <div class="sidebar">
             <div class="section-card">
                 <div class="section-header">
@@ -421,10 +364,6 @@
     </footer>
 
     <script>
-        // Lista de los 23 Cursos Emergentes
-        const courses = [
-           <script>
-        // Lista exacta de los 23 Cursos Emergentes CINDEA Pital 2027
         const courses = [
             { code: "Módulo 300", name: "Preparación y servicios de productos de repostería" },
             { code: "Módulo 304", name: "Digitación computacional" },
@@ -525,86 +464,6 @@
             alert("¡Gracias por participar! Tus preferencias para el CINDEA Pital han sido registradas correctamente.");
         }
 
-        // Cargar cursos al iniciar
-        renderCourses();
-    </script>
-        ];
-
-        let selectedCourses = [];
-
-        function renderCourses() {
-            const grid = document.getElementById('coursesGrid');
-            grid.innerHTML = '';
-            courses.forEach((course, index) => {
-                grid.innerHTML += `
-                    <div class="course-card">
-                        <div>
-                            <span class="code">Módulo ${300 + index}</span>
-                            <h4>${course}</h4>
-                        </div>
-                        <button class="btn-add" onclick="addCourse('${course}')">+ Agregar</button>
-                    </div>
-                `;
-            });
-        }
-
-        function addCourse(courseName) {
-            if (selectedCourses.includes(courseName)) {
-                alert("Ya agregaste este curso a tus prioridades.");
-                return;
-            }
-            if (selectedCourses.length >= 5) {
-                alert("Puedes seleccionar un máximo de 5 preferencias.");
-                return;
-            }
-            selectedCourses.push(courseName);
-            updatePriorityList();
-        }
-
-        function removeCourse(index) {
-            selectedCourses.splice(index, 1);
-            updatePriorityList();
-        }
-
-        function updatePriorityList() {
-            const list = document.getElementById('priorityList');
-            const count = document.getElementById('selectedCount');
-            count.innerText = selectedCourses.length;
-
-            if (selectedCourses.length === 0) {
-                list.innerHTML = `<li style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding-top: 2rem;">Tus cursos favoritos aparecerán aquí.</li>`;
-                return;
-            }
-
-            list.innerHTML = '';
-            selectedCourses.forEach((course, index) => {
-                list.innerHTML += `
-                    <li class="priority-item">
-                        <span><strong>#${index + 1}</strong> ${course}</span>
-                        <button class="btn-remove" onclick="removeCourse(${index})">&times;</button>
-                    </li>
-                `;
-            });
-        }
-
-        function filterCourses() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.course-card');
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(input) ? 'flex' : 'none';
-            });
-        }
-
-        function submitForm() {
-            if(selectedCourses.length === 0) {
-                alert("Por favor selecciona al menos 1 curso preferido.");
-                return;
-            }
-            alert("¡Gracias por participar! Tus preferencias para el CINDEA Pital han sido registradas correctamente.");
-        }
-
-        // Cargar cursos al iniciar
         renderCourses();
     </script>
 </body>
