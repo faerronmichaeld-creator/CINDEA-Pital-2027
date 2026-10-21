@@ -284,9 +284,8 @@
         <img src="banner.jpg" alt="Censo Cursos Emergentes CINDEA Pital 2027">
     </div>
 
-    <!-- FORMULARIO CONECTADO A TU CORREO CON FORMSUBMIT -->
-    <form id="censusForm" action="https://formsubmit.co/faerron.michael.d@gmail.com" method="POST">
-        <!-- Configuraciones automáticas de FormSubmit -->
+    <!-- CAMBIA TU_CORREO_PERSONAL@gmail.com POR TU GMAIL REAL -->
+    <form id="censusForm" action="https://formsubmit.co/TU_CORREO_PERSONAL@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Nueva respuesta - Censo CINDEA Pital 2027">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="Cursos_Seleccionados" id="hiddenCoursesInput">
@@ -475,10 +474,7 @@
                 return;
             }
             
-            // Guardar los cursos seleccionados en el input oculto
             document.getElementById('hiddenCoursesInput').value = selectedCourses.join(' | ');
-            
-            // Enviar el formulario
             form.submit();
         }
 
