@@ -284,12 +284,8 @@
         <img src="banner.jpg" alt="Censo Cursos Emergentes CINDEA Pital 2027">
     </div>
 
-    <!-- CAMBIA TU_CORREO_PERSONAL@gmail.com POR TU GMAIL REAL -->
-    <form id="censusForm" action="https://formsubmit.co/faerron.michael.d@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Nueva respuesta - Censo CINDEA Pital 2027">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="Cursos_Seleccionados" id="hiddenCoursesInput">
-
+    <!-- El formulario ya no usa action externo, se maneja mediante JavaScript directo al Webhook -->
+    <form id="censusForm">
         <main class="main-container">
             <div>
                 <!-- Paso 1 -->
@@ -301,19 +297,19 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nombre completo *</label>
-                            <input type="text" name="Nombre_Completo" placeholder="Escribe tu nombre y apellidos" required>
+                            <input type="text" id="nombreCompleto" placeholder="Escribe tu nombre y apellidos" required>
                         </div>
                         <div class="form-group">
                             <label>Cédula o documento de identidad *</label>
-                            <input type="text" name="Cedula" placeholder="Ej.: 1-1234-5678" required>
+                            <input type="text" id="cedula" placeholder="Ej.: 1-1234-5678" required>
                         </div>
                         <div class="form-group">
                             <label>Teléfono *</label>
-                            <input type="tel" name="Telefono" placeholder="Ej.: 8888-8888" required>
+                            <input type="tel" id="telefono" placeholder="Ej.: 8888-8888" required>
                         </div>
                         <div class="form-group">
                             <label>Correo electrónico</label>
-                            <input type="email" name="Correo" placeholder="Ej.: nombre@correo.com">
+                            <input type="email" id="correo" placeholder="Ej.: nombre@correo.com">
                         </div>
                     </div>
                 </div>
@@ -350,7 +346,7 @@
                     </ul>
 
                     <label style="font-size: 0.75rem; color: #475569; display: flex; gap: 0.4rem; margin-bottom: 1rem;">
-                        <input type="checkbox" name="Autorizacion" value="Aceptada" required>
+                        <input type="checkbox" id="autorizacion" value="Aceptada" required>
                         Autorizo al CINDEA Pital a utilizar estos datos para registrar mi participación.
                     </label>
 
@@ -463,7 +459,7 @@
             });
         }
 
-        function submitForm() {
+        async function submitForm() {
             const form = document.getElementById('censusForm');
             if (!form.checkValidity()) {
                 form.reportValidity();
@@ -473,9 +469,47 @@
                 alert("Por favor selecciona al menos 1 curso preferido.");
                 return;
             }
-            
-            document.getElementById('hiddenCoursesInput').value = selectedCourses.join(' | ');
-            form.submit();
+
+            // Datos que se enviarán a Make
+            const formData = {
+                Nombre_Completo: document.getElementById('nombreCompleto').value,
+                Cedula: document.getElementById('cedula').value,
+                Telefono: document.getElementById('telefono').value,
+                Correo: document.getElementById('correo').value,
+                Cursos_Seleccionados: selectedCourses.join(' | ') // Aquí van separados con " | "
+            };
+
+            const submitBtn = document.querySelector('.btn-submit');
+            submitBtn.innerText = "Enviando...";
+            submitBtn.disabled = true;
+
+            try {
+                // PEGA AQUÍ ABAJO LA URL DE TU WEBHOOK DE MAKE:
+                const webhookUrl = 'AQUÍ_PEGA_TU_URL_DE_MAKE';
+
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert("¡Respuestas enviadas con éxito!");
+                    form.reset();
+                    selectedCourses = [];
+                    updatePriorityList();
+                } else {
+                    alert("Hubo un error al enviar los datos. Inténtalo de nuevo.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error de conexión al enviar los datos.");
+            } finally {
+                submitBtn.innerText = "Enviar respuestas";
+                submitBtn.disabled = false;
+            }
         }
 
         renderCourses();
